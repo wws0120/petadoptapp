@@ -1,0 +1,172 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  role      Role       @default(MEMBER)
+  status    UserStatus
+  imageUrl  String?
+
+  savedPetIds String[] @db.ObjectId
+
+  userProfile UserProfile?
+  adoptions   AdoptionRecord[]
+  donations   Donation[]
+}
+
+model UserProfile {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  phone       String?
+  whatsapp    String?
+  dateOfBirth DateTime?
+  firstName   String?
+  lastName    String?
+  biography   String?
+  address     Address?
+
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Address {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  region   String?
+  district String?
+  street   String?
+  estate   String?
+  flat     String?
+  floor    String?
+  block    String?
+
+  userProfile UserProfile @relation(fields: [profileId], references: [id])
+  profileId   String      @unique @db.ObjectId
+}
+
+model Animal {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  category       String
+  species        String
+  breed          String
+  sex            String
+  dateOfBirth    DateTime
+  weight         Float
+  status         AnimalStatus
+  gallery        String[]
+  description    String
+  adoptionRecord AdoptionRecord[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Donation {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  amount        Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  cancelledAt   DateTime?
+  paymentStatus String
+  sessionId     String
+  type          String
+
+  donorEmail String
+  donor      User   @relation(fields: [donorEmail], references: [email])
+}
+
+model AdoptionRecord {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  status AdoptionStatus
+
+  animalId  String @map("animalId") @db.ObjectId
+  adopterId String @map("adopterId") @db.ObjectId
+
+  adminNotes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  animal  Animal @relation(fields: [animalId], references: [id])
+  adopter User   @relation(fields: [adopterId], references: [id])
+}
+
+model Event {
+  id         String        @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  coverImage String?
+  category   EventCategory
+  content    String
+  eventDate  DateTime
+  startTime  String
+  endTime    String
+  status     String        @default("ACTIVE")
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+enum Role {
+  MEMBER
+  ADMIN
+  MANAGEMENT
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  INACTIVE
+  BANNED
+  SUSPENDED
+  DELETED
+}
+
+enum AnimalStatus {
+  AVAILABLE
+  ADOPTED
+  UNAVAILABLE
+  RESERVED
+  PASSED
+}
+
+enum AdoptionStatus {
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  IN_PROGRESS
+  CANCELLED
+}
+
+enum DonationStatus {
+  paid
+  active
+  canceled
+  paused
+}
+
+enum Category {
+  DOG
+  CAT
+  SMALL_MAMMAL
+  BIRD
+  REPTILE
+}
+
+enum EventCategory {
+  ADOPTION_EVENT
+  EDUCATION_DAY
+  FUNDRAISING_EVENT
+}

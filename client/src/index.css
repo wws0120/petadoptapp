@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Open Sans', Inter, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
+  line-height: 1.5;
+  font-weight: 500;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  min-width: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='number'],
+input[type='time'],
+input[type='tel'],
+input[type='date'],
+select,
+textarea {
+  @apply w-full border  text-gray-900 my-1 py-2 px-3 rounded-md focus:outline-none focus:ring-1 focus:ring-sky-300;
+}
+textarea {
+  height: 140px;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+@layer utilities {
+  .max-container {
+    @apply mx-auto max-w-full 2xl:max-w-[1760px];
+  }
+
+  .section-padding {
+    @apply px-2 sm:px-6 lg:px-20 py-10 w-full sm:py-12 lg:py-16;
+  }
+
+  .flexCenter {
+    @apply flex items-center justify-center;
+  }
+
+  .flexBetween {
+    @apply flex items-center justify-between;
+  }
+
+  .flexStart {
+    @apply flex items-center justify-start;
+  }
+
+  .flexEnd {
+    @apply flex items-center justify-end;
+  }
+
+  /* button style */
+  .button-primary {
+    @apply bg-gradient-to-tr from-pink-500 to-red-400 hover:from-pink-600 hover:to-red-500 active:from-pink-700 active:to-red-600 focus-visible:ring ring-pink-300 text-white font-semibold rounded-md outline-none transition duration-100;
+  }
+  .button-secondary {
+    @apply bg-gray-400/50 text-white rounded-xl;
+  }
+
+  .button-tertiary {
+    @apply text-white bg-gradient-to-r from-teal-600 via-teal-500 to-green-500 hover:bg-gradient-to-br focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800 font-semibold rounded-md outline-none transition duration-100;
+  }
+  .button-quaternary {
+    @apply bg-blue-500 hover:bg-blue-400 text-white font-semibold rounded-md;
+  }
+  .button-quinary {
+    @apply flex sm:inline-flex justify-center items-center bg-gradient-to-tr from-pink-500 to-red-400 hover:from-pink-600 hover:to-red-500 active:from-pink-700 active:to-red-600 focus-visible:ring ring-pink-300 text-white font-semibold text-center rounded-md outline-none transition duration-100 px-5 py-2;
+  }
+  .button-danger {
+    @apply bg-red-600 hover:bg-red-500 active:bg-red-700 text-white font-semibold rounded-md;
+  }
+
+  /* button size */
+  .button-base {
+    @apply flex sm:inline-flex justify-center items-center text-center  px-5 py-2;
+  }
+}
