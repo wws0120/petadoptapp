@@ -37,16 +37,16 @@ app.use(cors(corsConfig));
 app.use(cookieParser());
 // Handle preflight requests
 
-app.use('/animals', animalRoute);
-app.use('/users', userRoute);
-app.use('/adoption', adoptionRoute);
-app.use('/donation', donationRoute);
-app.use('/events', eventRoute);
-app.use('/auth', authRoute);
-app.use('/favorite', favoriteRoute);
-app.use('/dashboard', dashboardRoute);
-app.use('/stripe', stripeRoute);
-app.use('/cloudinary', cloudinaryRoute);
+app.use('/server/animals', animalRoute);
+app.use('/server/users', userRoute);
+app.use('/server/adoption', adoptionRoute);
+app.use('/server/donation', donationRoute);
+app.use('/server/events', eventRoute);
+app.use('/server/auth', authRoute);
+app.use('/server/favorite', favoriteRoute);
+app.use('/server/dashboard', dashboardRoute);
+app.use('/server/stripe', stripeRoute);
+app.use('/server/cloudinary', cloudinaryRoute);
 
 // port
 const port = process.env.PORT || 8080;
