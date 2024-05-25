@@ -44,8 +44,8 @@ const MySetting = lazy(() => import('./pages/account/mySetting'));
 const Dashboard = lazy(() => import('./pages/dashboard/dashboard'));
 
 const AnimalList = lazy(() => import('./pages/dashboard/animalList'));
-const AnimalEditCreate = lazy(() =>
-  import('./pages/dashboard/animalEditCreate')
+const AnimalEditCreate = lazy(
+  () => import('./pages/dashboard/animalEditCreate')
 );
 const EventList = lazy(() => import('./pages/dashboard/eventList'));
 const EventEditCreate = lazy(() => import('./pages/dashboard/eventEditCreate'));
@@ -59,11 +59,11 @@ const UserList = lazy(() => import('./pages/dashboard/userList'));
 const UserDetail = lazy(() => import('./pages/dashboard/userDetail'));
 
 // protected routes
-const RoleProtectedRoute = lazy(() =>
-  import('./components/dashboard/roleProtectedRoute')
+const RoleProtectedRoute = lazy(
+  () => import('./components/dashboard/roleProtectedRoute')
 );
-const MemberProtectedRoute = lazy(() =>
-  import('./components/account/memberProtectedRoute')
+const MemberProtectedRoute = lazy(
+  () => import('./components/account/memberProtectedRoute')
 );
 
 // 404 page
