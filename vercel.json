@@ -1,13 +1,26 @@
-
 {
-  "buildCommand": "cd client && yarn install && ./node_modules/vite/bin/vite.js build",
-  "outputDirectory": "client/dist",
-  "framework": "vite",
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/server/(.*)",
-      "destination": "/server/index.js"
+      "src": "./server/dist/index.js",
+      "use": "@vercel/node",
+      "config": { "includeFiles": ["/server/dist/**"] }
     },
-    {"source": "/(.*)", "destination": "/"}
+    {
+      "src": "./client/dist",
+      "use": "@vercel/vite"
+    }
+  ],
+
+  "routes": [
+    {
+      "src": "/server/(.*)",
+      "dest": "server/dist/index.js"
+    },
+
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
