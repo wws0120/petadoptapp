@@ -152,7 +152,7 @@ export const getDonationSummary = async (req: Request, res: Response) => {
 };
 
 export const getRecentAnimals = async (req: Request, res: Response) => {
-  const limit = parseInt(req.query.limit);
+  const limit = parseInt(req.query.limit as string);
 
   try {
     const animals = await prisma.animal.findMany({

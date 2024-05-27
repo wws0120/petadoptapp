@@ -20,7 +20,7 @@ model User {
   status    UserStatus
   imageUrl  String?
 
-  savedPetIds String[] @db.ObjectId
+  savedPetIds String[] @default([]) @db.ObjectId
 
   userProfile UserProfile?
   adoptions   AdoptionRecord[]

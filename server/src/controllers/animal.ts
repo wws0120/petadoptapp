@@ -18,8 +18,12 @@ export const getAnimals = async (req: Request, res: Response) => {
 
     // Calculate the birth year for the minage and maxage
     const currentYear = new Date().getFullYear();
-    const minBirthYear = minAge ? currentYear - minAge : undefined;
-    const maxBirthYear = maxAge ? currentYear - maxAge : undefined;
+    const minBirthYear = minAge
+      ? currentYear - parseInt(minAge as string)
+      : undefined;
+    const maxBirthYear = maxAge
+      ? currentYear - parseInt(maxAge as string)
+      : undefined;
 
     // Create date objects using the birth years
     const currentDate = new Date();
@@ -30,13 +34,13 @@ export const getAnimals = async (req: Request, res: Response) => {
       ? new Date(maxBirthYear, currentDate.getMonth(), currentDate.getDate())
       : undefined;
 
-    const categoriesString = categories ?? null;
+    const categoriesString = typeof categories === 'string' ? categories : null;
     const categoriesArray = categoriesString
       ? categoriesString.split(',').map((item) => item.toUpperCase())
       : undefined;
 
     const result = await prisma.animal.findMany({
-      take: limit ? parseInt(limit) : 18,
+      take: limit ? parseInt(limit as string) : 18,
       ...(lastCursor && {
         skip: 1, // Do not include the cursor itself in the query result.
         cursor: {
@@ -45,14 +49,14 @@ export const getAnimals = async (req: Request, res: Response) => {
       }),
       where: {
         category: { in: categoriesArray ? categoriesArray : undefined },
-        sex: sex ? sex : undefined,
+        sex: sex ? (sex as string) : undefined,
         dateOfBirth: {
           gte: maxDate ? maxDate : undefined,
           lte: minDate ? minDate : undefined,
         },
         weight: {
-          gte: minWeight ? parseInt(minWeight) : undefined,
-          lte: maxWeight ? parseInt(maxWeight) : undefined,
+          gte: minWeight ? parseInt(minWeight as string) : undefined,
+          lte: maxWeight ? parseInt(maxWeight as string) : undefined,
         },
         status: 'AVAILABLE',
       },
@@ -85,14 +89,14 @@ export const getAnimals = async (req: Request, res: Response) => {
       },
       where: {
         category: { in: categoriesArray ? categoriesArray : undefined },
-        sex: sex ? sex : undefined,
+        sex: sex ? (sex as string) : undefined,
         dateOfBirth: {
           gte: maxDate ? maxDate : undefined,
           lte: minDate ? minDate : undefined,
         },
         weight: {
-          gte: minWeight ? parseInt(minWeight) : undefined,
-          lte: maxWeight ? parseInt(maxWeight) : undefined,
+          gte: minWeight ? parseInt(minWeight as string) : undefined,
+          lte: maxWeight ? parseInt(maxWeight as string) : undefined,
         },
         status: 'AVAILABLE',
       },
@@ -181,7 +185,8 @@ export const getRandomAnimal = async (req: Request, res: Response) => {
 
 export const getRelatedAnimals = async (req: Request, res: Response) => {
   try {
-    const { category } = req.query;
+    const category =
+      typeof req.query.category === 'string' ? req.query.category : undefined;
 
     const relatedAnimals = await prisma.animal.findMany({
       where: {
@@ -198,7 +203,8 @@ export const getRelatedAnimals = async (req: Request, res: Response) => {
 };
 export const getFeaturedAnimals = async (req: Request, res: Response) => {
   try {
-    const { category } = req.query;
+    const category =
+      typeof req.query.category === 'string' ? req.query.category : undefined;
 
     const animals = await prisma.animal.findMany({
       where: {

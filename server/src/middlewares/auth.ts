@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
+import { JwtPayload } from '../types/types';
 import * as jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -33,7 +34,10 @@ export const verifyToken = async (
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET);
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_ACCESS_TOKEN_SECRET
+    ) as JwtPayload;
 
     if (!decoded.id) {
       return res.status(403).send({
@@ -55,7 +59,7 @@ export const verifyUserOrAdmin = async (
   res: Response,
   next: NextFunction
 ) => {
-  if (req.user._id === req.params.id || req.user.role === 'ADMIN') {
+  if (req.user.id === req.params.id || req.user.role === 'ADMIN') {
     next();
   } else {
     return res.status(403).send({
@@ -103,7 +107,14 @@ export const checkUserAuth = async (
     // No token found, treating as guest
     req.user = {
       email: 'anonymous@guest.account',
-      user: 'anonymous',
+      name: 'anonymous',
+      id: 'anonymous',
+      password: 'anonymous',
+      createdAt: new Date(),
+      role: 'MEMBER',
+      status: 'INACTIVE',
+      imageUrl: null,
+      savedPetIds: [],
     };
     return next(); // Proceed as guest
   }

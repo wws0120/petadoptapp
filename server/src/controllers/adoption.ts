@@ -8,11 +8,14 @@ export const getAllAdoptions = async (req: Request, res: Response) => {
   const { status } = req.query;
   const limit = 15;
 
+  const pageNumber = parseInt(page as string, 10); // Convert page to a number
+  const skipAmount = (pageNumber - 1) * limit;
+
   try {
     const records = await prisma.adoptionRecord.findMany({
-      skip: (page - 1) * limit,
+      skip: skipAmount,
       take: limit,
-      where: status ? { status: { equals: status } } : undefined,
+      where: status ? { status: { equals: status as string } } : undefined,
       select: {
         id: true,
         status: true,

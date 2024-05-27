@@ -35,7 +35,7 @@ export async function registUser(req: Request, res: Response) {
       .status(201)
       .json({ message: 'User created successfully', success: true });
   } catch (error: any) {
-    return res.json({ message: error.message }, { status: 500 });
+    return res.status(500).json({ message: error.message });
   }
 }
 
@@ -101,7 +101,7 @@ export async function loginUser(
     res.cookie('jwt', refreshToken, {
       httpOnly: true, //accessible only by web server
       secure: true, //https
-      sameSite: 'None', //cross-site cookie
+      sameSite: 'none', //cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry: set to match rT
     });
 
@@ -149,7 +149,7 @@ const login = async (req, res) => {
   res.cookie('jwt', refreshToken, {
     httpOnly: true, //accessible only by web server
     secure: true, //https
-    sameSite: 'None', //cross-site cookie
+    sameSite: 'none', //cross-site cookie
     maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry: set to match rT
   });
 
@@ -171,7 +171,7 @@ export const refreshToken = (req, res) => {
       if (err) return res.status(403).json({ message: 'Forbidden' });
       res.clearCookie('jwt', {
         httpOnly: true,
-        sameSite: 'None',
+        sameSite: 'none',
         secure: true,
       });
 
