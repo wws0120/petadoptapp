@@ -43,7 +43,7 @@ export const createStripeSession = async (req: Request, res: Response) => {
     const donationAmount = req.body.amount;
     const donationType = req.body.paymentType; // either 'once' or 'monthly'
     const userEmail = req.user.email;
-    const userId = req.user.userId;
+    const userId = req.user.id;
     let line_items;
     const paymentMode = donationType === 'once' ? 'payment' : 'subscription';
     if (donationType === 'once') {

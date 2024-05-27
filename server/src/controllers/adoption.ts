@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import type { AdoptionStatus } from '@prisma/client';
 import { Request, Response } from 'express';
 
 const prisma = new PrismaClient();
@@ -15,7 +16,9 @@ export const getAllAdoptions = async (req: Request, res: Response) => {
     const records = await prisma.adoptionRecord.findMany({
       skip: skipAmount,
       take: limit,
-      where: status ? { status: { equals: status as string } } : undefined,
+      where: status
+        ? { status: { equals: status as AdoptionStatus } }
+        : undefined,
       select: {
         id: true,
         status: true,
