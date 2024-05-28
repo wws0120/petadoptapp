@@ -1,6 +1,0 @@
-{
-  "buildCommand": "yarn install && ./node_modules/vite/bin/vite.js build",
-  "outputDirectory": "build/dist",
-  "framework": "vite",
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
-}
