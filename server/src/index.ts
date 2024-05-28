@@ -28,6 +28,7 @@ const corsConfig = {
     'http://localhost:5173', // Removed trailing slash
     'http://localhost:8080',
     'http://petadoptapp.vercel.app',
+    'https://petadoptapp.vercel.app',
   ],
   credentials: true,
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'], // Optional: Specify HTTP methods
