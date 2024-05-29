@@ -119,19 +119,20 @@ const Testimonial = ({}) => {
           through adoption.
         </p>
       </div>
-
-      <TestimonialCarousel
-        autoplay={false}
-        breakpoints={breakpoints}
-        className="testimonial-carousel"
-        scrollbar={{ draggable: true, hide: false }}
-      >
-        {testimonials?.map((testimonial) => (
-          <SwiperSlide key={`testimonial-${testimonial.id}`}>
-            <TestimonialCard item={testimonial} />
-          </SwiperSlide>
-        ))}
-      </TestimonialCarousel>
+      {testimonials && (
+        <TestimonialCarousel
+          autoplay={false}
+          breakpoints={breakpoints}
+          className="testimonial-carousel"
+          scrollbar={{ draggable: true, hide: false }}
+        >
+          {testimonials?.map((testimonial) => (
+            <SwiperSlide key={`testimonial-${testimonial.id}`}>
+              <TestimonialCard item={testimonial} />
+            </SwiperSlide>
+          ))}
+        </TestimonialCarousel>
+      )}
     </div>
   );
 };

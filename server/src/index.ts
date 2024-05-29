@@ -23,17 +23,13 @@ const app = express();
 app.use('/webhook', express.raw({ type: 'application/json' }), webhookRoute);
 app.use(express.json());
 
-/*
-[
+const corsConfig = {
+  origin: [
     'http://localhost:5173', // Removed trailing slash
     'http://localhost:8080',
     'http://petadoptapp.vercel.app',
     'https://petadoptapp.vercel.app',
-  ]
-  */
-
-const corsConfig = {
-  origin: true,
+  ],
   credentials: true,
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'], // Optional: Specify HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Optional: Specify allowed headers
