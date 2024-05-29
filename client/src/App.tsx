@@ -70,7 +70,13 @@ const MemberProtectedRoute = lazy(
 const NotFound = lazy(() => import('./pages/notFound'));
 
 function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
 
   const SuspenseLayout = () => (
     <React.Suspense fallback={<Loading />}>
