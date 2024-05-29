@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { formatEnum } from '../../utils/helper';
 
 function EventItem({ item }) {

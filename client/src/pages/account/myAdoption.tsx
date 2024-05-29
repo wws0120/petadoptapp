@@ -1,5 +1,4 @@
-import React from 'react';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { useGetMyAdoptionRecord } from '../../hooks/querys/adoption';
 import Pagination from '../../components/account/shared/pagination';
 

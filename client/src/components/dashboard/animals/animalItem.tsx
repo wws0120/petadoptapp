@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import AnimalStatus from './animalStatus';
 
 function AnimalItem({
