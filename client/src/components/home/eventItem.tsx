@@ -32,7 +32,10 @@ function eventItem({ item }) {
 
           <div className="mt-1.5 flex gap-2 items-center text-sm font-semibold text-amber-500">
             <Icon icon="mage:calendar-2" className="inline-block" />
-            <span>{dayjs(item.eventDate).format('MMMM D, YYYY')}</span>
+            <span>
+              {/*dayjs(item.eventDate).format('MMMM D, YYYY')*/} test for error
+              this is the date
+            </span>
           </div>
         </div>
       </div>
