@@ -28,9 +28,9 @@ const categories = [
     path: '/animals?categories=bird',
   },
   {
-    title: 'Repile',
+    title: 'Reptile',
     img: image005,
-    path: '/animals?categories=repile',
+    path: '/animals?categories=reptile',
   },
 ];
 
